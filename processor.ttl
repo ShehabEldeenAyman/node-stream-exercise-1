@@ -5,44 +5,44 @@
 @prefix : <https://w3id.org/conn#>.
 @prefix sh: <http://www.w3.org/ns/shacl#>.
 
-js:DataReaderWriter a js:JsProcess;
-    js:file <index.js>;
-    js:function "processor";
-    js:location <./>;
-    js:mapping [
+js:DataReaderWriter a js:JsProcess; #function name
+    js:file <index.js>; #file in which function will be executed
+    js:function "processor"; #function name
+    js:location <./>; #location of javascript file
+    js:mapping [ #parameters of function
         a fno:Mapping;
         fno:parameterMapping [
             a fnom:PositionParameterMapping;
-            fnom:functionParameter "incoming";
-            fnom:implementationParameterPosition "0"^^xsd:int;
+            fnom:functionParameter "incoming"; #parameter name
+            fnom:implementationParameterPosition "0"^^xsd:int; #parameter position
         ], [
             a fnom:PositionParameterMapping;
-            fnom:functionParameter "outgoing";
-            fnom:implementationParameterPosition "1"^^xsd:int;
+            fnom:functionParameter "outgoing"; #parameter name
+            fnom:implementationParameterPosition "1"^^xsd:int; #parameter position
         ], [
             a fnom:PositionParameterMapping;
-            fnom:functionParameter "MIME type";
-            fnom:implementationParameterPosition "2"^^xsd:int;
+            fnom:functionParameter "MIME type"; #parameter name
+            fnom:implementationParameterPosition "2"^^xsd:int; #parameter position
         ];
     ].
 
 [ ] a sh:NodeShape;
-    sh:targetClass js:DataReaderWriter;
+    sh:targetClass js:DataReaderWriter; #function name
     sh:property [
         sh:class :ReaderChannel;
         sh:path js:incoming;
-        sh:name "incoming";
-        sh:maxCount 1;
+        sh:name "incoming"; #parameter name
+        sh:maxCount 1; #single value
         sh:minCount 1;
     ], [
         sh:class :WriterChannel;
         sh:path js:outgoing;
-        sh:name "outgoing";
-        sh:maxCount 1;
+        sh:name "outgoing"; #parameter name
+        sh:maxCount 1; #single value
         sh:minCount 1;
     ], [
         sh:datatype xsd:string;
         sh:path js:mime;
-        sh:name "MIME type";
-        sh:maxCount 1;
+        sh:name "MIME type"; #parameter name
+        sh:maxCount 1; #single value
     ].
