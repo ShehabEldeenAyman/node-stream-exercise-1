@@ -21,20 +21,29 @@ export function processor( //function has to be exported for processor.ttl
     incoming.on("data", async (data) => {
 
         count ++;
-        let store = RdfStore.createDefault();
-        await new Promise((resolve, reject) => { 
-            store.import(rdfParser.parse(str(data),{
+        let store = RdfStore.createDefault(); //object to store the rdf graph coming from fetch.ttl
+       
+       
+        await new Promise((resolve, reject) => {  //since the store expects rdf data, it has to be parsed first
+            store.import(rdfParser.parse(str(data),{ // data is parsed using rdfparser and then fed to the actual rdf store
                 contentType: mime
             })).on("end", resolve).on("error", reject);
         });
+
+
+        //data is now stored in the store and is ready for quering
+
         //you can now query the store using comunica
         const myEngine = new QueryEngine();
+        //actual query
         const bindingsStream = await myEngine.queryBindings(`
-            SELECT ?s ?p ?o WHERE {
+            SELECT ?s ?p ?o WHERE { 
               ?s ?p ?o
             } LIMIT 100`, {
-            sources: [store],
+            sources: [store], //data source
           });
+
+
         const bindings = await bindingsStream.toArray();
 
         console.log(bindings[0]?.get('o')?.value);
