@@ -12,11 +12,11 @@ import str from 'string-to-stream';
  * @param outgoing The data stream into which the resulting stream is written.
  * @param mime The MIME type of the data stream.
  */
-export function processor(
-    incoming: Stream<string>,
-    outgoing: Writer<string>,
-    mime = "text/turtle",
-): void {
+export function processor( //function has to be exported for processor.ttl
+    incoming: Stream<string>, //parameter for processor function in processor.ttl
+    outgoing: Writer<string>, //parameter for processor function in processor.ttl
+    mime = "text/turtle", //parameter for processor function in processor.ttl
+): void { 
     let count = 0;
     incoming.on("data", async (data) => {
 
@@ -37,7 +37,7 @@ export function processor(
           });
         const bindings = await bindingsStream.toArray();
 
-        console.log(bindings[0]?.get('s')?.value);
+        console.log(bindings[0]?.get('o')?.value);
 
         // Serialize the quads with named node identifiers.
         await outgoing.push('member ' +  count + 'processed\n');

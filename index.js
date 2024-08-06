@@ -20,7 +20,7 @@ export function processor(incoming, outgoing, mime = "text/turtle") {
             sources: [store],
         });
         const bindings = await bindingsStream.toArray();
-        console.log(bindings[0]?.get('s')?.value);
+        console.log(bindings[0]?.get('o')?.value);
         await outgoing.push('member ' + count + 'processed\n');
     });
     incoming.on("end", () => {
