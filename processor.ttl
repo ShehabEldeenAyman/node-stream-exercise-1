@@ -33,13 +33,13 @@ js:DataReaderWriter a js:JsProcess; #function name
         sh:path js:incoming;
         sh:name "incoming"; #parameter name
         sh:maxCount 1; #single value
-        sh:minCount 1;
+        sh:minCount 1; #this is an obligatory parameter since it has a min count of 1
     ], [
         sh:class :WriterChannel;
         sh:path js:outgoing;
         sh:name "outgoing"; #parameter name
         sh:maxCount 1; #single value
-        sh:minCount 1;
+        sh:minCount 1;#this is an obligatory parameter since it has a min count of 1
     ], [
         sh:datatype xsd:string;
         sh:path js:mime;

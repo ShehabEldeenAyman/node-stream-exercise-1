@@ -14,13 +14,13 @@ export function processor(incoming, outgoing, mime = "text/turtle") {
         });
         const myEngine = new QueryEngine();
         const bindingsStream = await myEngine.queryBindings(`
-            SELECT ?s ?p ?o WHERE {
+            SELECT ?s ?p ?o WHERE { 
               ?s ?p ?o
             } LIMIT 100`, {
             sources: [store],
         });
         const bindings = await bindingsStream.toArray();
-        console.log(bindings[0]?.get('o')?.value);
+        console.log(bindings[0]?.get('s')?.value);
         await outgoing.push('member ' + count + 'processed\n');
     });
     incoming.on("end", () => {

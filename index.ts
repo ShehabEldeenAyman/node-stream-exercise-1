@@ -46,7 +46,8 @@ export function processor( //function has to be exported for processor.ttl
 
         const bindings = await bindingsStream.toArray();
 
-        console.log(bindings[0]?.get('o')?.value);
+        //console.log(bindings[0]?.get('o')?.value);
+        console.log(bindings[0]?.get('s')?.value);
 
         // Serialize the quads with named node identifiers.
         await outgoing.push('member ' +  count + 'processed\n');
